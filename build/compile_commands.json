@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/aag/c++/Projects/8/build",
+  "command": "/usr/bin/g++ -g -o CMakeFiles/game.dir/src/main.cpp.o -c /home/aag/c++/Projects/8/src/main.cpp",
+  "file": "/home/aag/c++/Projects/8/src/main.cpp"
+}
+]
