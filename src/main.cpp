@@ -7,10 +7,21 @@
 #include "controls.cpp"
 #include "OnScreenRender.cpp"
 
+// compile command: g++ src/main.cpp -lSDL2 -lGL -o out/game.o 
+
 int main(int, char **)
 {
     SDL_Window *window = NULL;
     SDL_GLContext context = NULL;
+    SDL_Event event;
+    SDL_Renderer* renderer = NULL;
+
+    int x = 0;
+    int y = 0;
+    int command = 0;
+    bool quit = false;
+
+
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
@@ -35,58 +46,44 @@ int main(int, char **)
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-
     
-    int x = 0;
-    int y = 0;
-
-
     
 
-    Player(x, y, window, context);
-
-    while (true)
-    { 
-        
+    while (!quit)
+    {
         SDL_Event event;
         while (SDL_PollEvent(&event))
         {
             if (event.type == SDL_QUIT)
             {
-                return 0;
+                quit = true;
             }
-            commands(event);
-            switch (commands(event))
-            {
+        }
+        
+        command = commands(event);
+        switch (command)
+        {
             case -1:
-                std::cout << "Escape pressed" << std::endl;
                 return 0;
+                break;
             case 1:
-                std::cout << "Up" << std::endl;
-                y++;
+                y -= 5;
                 break;
             case 2:
-                std::cout << "Down" << std::endl;
-                y--;
+                y += 5;
                 break;
             case 3:
-                std::cout << "Left" << std::endl;
-                x--;
+                x -= 5;
                 break;
             case 4:
-                std::cout << "Right" << std::endl;
-                x++;
+                x += 5;
                 break;
             case 5:
-                std::cout <<"X = " << x << " | Y = " << y << std::endl;
-            }
+                std::cout << "x: " << x << " y: " << y << std::endl;
+            default:
+                break;
+        }
+        Player(x, y, window, context);
 
-            glClear(GL_COLOR_BUFFER_BIT);
-            SDL_GL_SwapWindow(window);
-           
-
-        } 
     }
-
-    return 0;
 }

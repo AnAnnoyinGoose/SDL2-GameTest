@@ -12,6 +12,7 @@ void Player( int x,int y, SDL_Window* window, SDL_GLContext context ) {
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     SDL_RenderFillRect(renderer, &Player);
     SDL_RenderPresent(renderer);
+    SDL_DestroyRenderer(renderer);
 
 }
 
